@@ -1,0 +1,81 @@
+name: Materialize binaries and enable Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Decode .b64 assets into binary files
+        run: |
+          set -euo pipefail
+          while IFS= read -r f; do
+            out="${f%.b64}"
+            base64 -d "$f" > "$out"
+            echo "Decoded $f -> $out ($(wc -c < "$out") bytes)"
+          done < <(find . -type f -name '*.b64' | sort)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No binary changes to commit"
+          else
+            git commit -m "Materialize binary assets from base64 sources"
+            git push
+          fi
+
+  enable-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable GitHub Pages from main root with custom domain
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          echo "Attempting to create Pages site..."
+          create_out=$(gh api -X POST "repos/${GITHUB_REPOSITORY}/pages" --input - 2>&1 <<'JSON'
+          {
+            "source": { "branch": "main", "path": "/" },
+            "build_type": "legacy"
+          }
+          JSON
+          )
+          create_status=$?
+          echo "CREATE_STATUS=$create_status"
+          echo "$create_out"
+
+          echo "Attempting to set custom domain and source..."
+          update_out=$(gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" --input - 2>&1 <<'JSON'
+          {
+            "cname": "digitalphysis.com",
+            "build_type": "legacy",
+            "source": { "branch": "main", "path": "/" }
+          }
+          JSON
+          )
+          update_status=$?
+          echo "UPDATE_STATUS=$update_status"
+          echo "$update_out"
+
+          if [ "$update_status" -ne 0 ]; then
+            echo "PUT with cname failed; trying source only..."
+            gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" --input - <<'JSON'
+          {
+            "build_type": "legacy",
+            "source": { "branch": "main", "path": "/" }
+          }
+          JSON
+          fi
+
+          echo "Current Pages config:"
+          gh api "repos/${GITHUB_REPOSITORY}/pages" || true
