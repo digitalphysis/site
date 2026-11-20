@@ -6,6 +6,8 @@
 <title>Diagnóstico Kaizen | Physis</title>
 <meta name="description" content="Diagnóstico de processos da Physis: o mapa do trabalho como ele roda hoje e uma lista priorizada do que corrigir primeiro. Orçamento de acordo com o porte da empresa.">
 <meta name="theme-color" content="#000948">
+<link rel="icon" href="assets/physis-simbolo-circulo-navy.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
 @font-face{font-family:"Montserrat";src:url("assets/fonts/Montserrat.ttf") format("truetype");font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:"Liberation Sans";src:url("assets/fonts/LiberationSans-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
@@ -46,8 +48,8 @@ h2{font-size:clamp(26px,4.4vw,38px);max-width:22ch}
 
 /* topo + hero */
 .topo{background:var(--navy);position:relative;z-index:2}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 0}
-.nav img{height:96px;width:auto;margin-left:-10px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.nav img{height:60px;width:auto}
 .hero{background:radial-gradient(900px 500px at 85% 20%,rgba(64,2,255,.45),transparent 60%),linear-gradient(180deg,var(--navy) 0%,var(--navy-escuro) 100%);color:#fff;padding:40px 0 88px;overflow:hidden}
 .hero-grid{display:grid;gap:56px;align-items:center}
 .hero h1{color:#fff;font-size:clamp(34px,6.4vw,60px);max-width:14ch}
@@ -165,7 +167,7 @@ details p{padding:0 24px 22px;color:var(--muted)}
 /* rodapé */
 footer{background:var(--navy-escuro);color:#c9cbe4;padding:56px 0 40px;font-size:15px}
 .foot-grid{display:grid;gap:30px}
-footer img{height:96px;width:auto;margin-left:-10px}
+footer img{height:156px;width:auto}
 footer strong{display:block;color:#fff;font-family:var(--titulo);font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
 footer a{color:#fff;text-underline-offset:3px}
 footer li{list-style:none;margin:6px 0}
@@ -197,7 +199,9 @@ footer li{list-style:none;margin:6px 0}
   body{padding-bottom:0}
   .sticky-wa{display:none}
   .hero{padding:56px 0 110px}
-  .nav img{height:130px;margin-left:-14px}
+  .nav{padding:12px 0}
+  .nav img{height:76px}
+  footer img{height:180px}
   .hero-grid{grid-template-columns:1.15fr .85fr}
   .sint-grid,.ent-grid{grid-template-columns:repeat(3,1fr)}
   .sobre-grid{grid-template-columns:340px 1fr}
@@ -214,7 +218,7 @@ footer li{list-style:none;margin:6px 0}
 
 <div class="topo">
   <div class="wrap nav">
-    <a href="#inicio" aria-label="Physis"><img src="assets/physis-horizontal-branco.svg" alt="Physis" width="592" height="290"></a>
+    <a href="#inicio" aria-label="Physis"><img src="assets/physis-simbolo-circulo-navy.svg" alt="Physis" width="2475" height="2475"></a>
     <a class="btn btn-ouro btn-sm" href="https://wa.me/5511964299250?text=Ol%C3%A1%2C%20Daniel.%20Vi%20a%20p%C3%A1gina%20do%20Diagn%C3%B3stico%20Kaizen%20e%20quero%20entender%20como%20funciona.">Falar no WhatsApp</a>
   </div>
 </div>
@@ -443,7 +447,7 @@ footer li{list-style:none;margin:6px 0}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/physis-horizontal-branco.svg" alt="Physis" width="592" height="290" loading="lazy">
+        <img src="assets/physis-completo-branco.svg" alt="Physis" width="2475" height="2475" loading="lazy">
         <p style="margin-top:8px">Physis, a evolução natural do negócio.</p>
         <p>São Paulo, SP</p>
       </div>
